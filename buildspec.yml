@@ -4,10 +4,10 @@ phases:
   pre_build:
     commands:
       - mvn clean install
-      - aws --version
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=381491822780.dkr.ecr.us-east-1.amazonaws.com/springboot-app
+      - aws --version
+      - REPOSITORY_URI=381491822780.dkr.ecr.us-east-1.amazonaws.com/springboot
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $REPOSITORY_URI
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
