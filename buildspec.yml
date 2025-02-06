@@ -4,6 +4,7 @@ phases:
   pre_build:
     commands:
       - mvn clean install
+      - aws --version
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=381491822780.dkr.ecr.us-east-1.amazonaws.com/springboot-app
